@@ -1,0 +1,21 @@
+{
+  "name": "nodechat",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Anderson Cook <andersonmcook@gmail.com> (https://github.com/andersonmcook)"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/andersonmcook/nodechat",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io-client": "^1.4.5"
+  }
+}
