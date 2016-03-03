@@ -20,5 +20,9 @@
   "homepage": "https://github.com/andersonmcook/nodechat#readme",
   "devDependencies": {
     "nodemon": "^1.9.1"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
   }
 }
