@@ -20,7 +20,7 @@
   form.addEventListener('submit', () => {
     const chat = {name: name.value, text: text.value}
     ws.emit('sendChat', chat) // before because displayChat resets text.value
-    displayChat(chat)
+    // displayChat(chat)
     text.value = ''
     event.preventDefault()
   })

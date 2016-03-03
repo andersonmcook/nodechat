@@ -34,11 +34,12 @@ ws.on('connection', socket => {
     socket.emit('receiveChat', result.rows)
   })
 
+// not currently refreshing like we used to do
 // parameterized query
   socket.on('sendChat', msg => {
-    db.query(`INSERT INTO chats (name, text) VALUES ($1, $2)`, [msg.name, msg.text], (err) => {
+    db.query(`INSERT INTO chats (name, text) VALUES ($1, $2)`, [msg.name, msg.text], (err, result) => {
       if (err) throw err
-      socket.broadcast.emit('receiveChat', [msg])
+      socket.emit('receiveChat', [msg])
     })
   })
 })
