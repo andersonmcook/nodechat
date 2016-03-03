@@ -25,17 +25,22 @@
     event.preventDefault()
   })
 
-// display chat on page
+// display chat on page, but not if it already exists on client side
+// should probably use local storage instead of dom
   function displayChat (chat) {
-    const li = generateLI(chat.name, chat.text)
-    // text.value = ''
-    ul.appendChild(li)
+    if (!document.querySelector(`[data-id="${chat._id}"`)) {
+      const li = generateLI(chat)
+      ul.appendChild(li)
+    }
   }
 
 // generate list item
-  function generateLI (name, text) {
+  function generateLI (chat) {
     const li = document.createElement('li')
-    const textNode = document.createTextNode(`${name}: ${text}`)
+    const textNode = document.createTextNode(`${chat.name}: ${chat.text}`)
+    const dataId = document.createAttribute('data-id')
+    dataId.value = chat._id
+    li.setAttributeNode(dataId)
     li.appendChild(textNode)
     return li
   }
