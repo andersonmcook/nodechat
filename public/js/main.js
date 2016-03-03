@@ -7,9 +7,8 @@
     console.log('browser socket connected')
   })
 
-  ws.on('receiveChat', msg => {
-    console.log(msg)
-    displayChat(msg.name, msg.text)
+  ws.on('receiveChat', msgs => {
+    msgs.forEach(displayChat)
   })
 
   const form = document.querySelector('form')
@@ -19,16 +18,16 @@
 
 // listen for submit, run displayChat, reset text value, prevent page reload
   form.addEventListener('submit', () => {
-    const [n, t] = [name.value, text.value]
-    ws.emit('sendChat', { name: n, text: t}) // before because displayChat resets text.value
-    displayChat(n, t)
+    const chat = {name: name.value, text: text.value}
+    ws.emit('sendChat', chat) // before because displayChat resets text.value
+    displayChat(chat)
     text.value = ''
     event.preventDefault()
   })
 
 // display chat on page
-  function displayChat (name, text) {
-    const li = generateLI(name, text)
+  function displayChat (chat) {
+    const li = generateLI(chat.name, chat.text)
     // text.value = ''
     ul.appendChild(li)
   }
@@ -39,6 +38,16 @@
     const textNode = document.createTextNode(`${name}: ${text}`)
     li.appendChild(textNode)
     return li
+  }
+
+// get JSON from POSTGRES
+  function getJSON (url, cb) {
+    const request = new XMLHttpRequest()
+    request.open('GET', url)
+    request.onload = () => {
+      cb(JSON.parse(request.responseText))
+    }
+    request.send()
   }
 
 })();
